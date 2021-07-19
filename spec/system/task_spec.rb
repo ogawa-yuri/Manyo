@@ -2,7 +2,7 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
 
   before do
-    FactoryBot.create(:task, title: 'test_task1', content: 'content1')
+    FactoryBot.create(:task)
     # FactoryBot.create(:second_task)
   end
 
@@ -24,7 +24,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
         visit tasks_path
-        expect(page).to have_content 'test_task1'
+        expect(page).to have_content 'test_title'
       end
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe 'タスク管理機能', type: :system do
          all('tr td')[2].click #allメソッドは引数に渡されたタグやclass, id値で一致する要素を全てとってきて配列に入れてくれる
 
          # visit task_path(task.id)
-         expect(page).to have_content 'test_task1'
+         expect(page).to have_content 'test_title'
          expect(page).to have_content 'タスク詳細画面'
        end
      end
