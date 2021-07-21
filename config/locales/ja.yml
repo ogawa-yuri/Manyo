@@ -205,3 +205,10 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  view:
+    edit: タスクを編集する
+    new: タスクを作成する
+    index: タスク一覧
+    show: タスク詳細
+    title: タイトル
+    content: 内容
