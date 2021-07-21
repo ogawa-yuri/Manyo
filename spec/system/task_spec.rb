@@ -32,6 +32,12 @@ RSpec.describe 'タスク管理機能', type: :system do
        it '新しいタスクが一番上に表示される' do
          # ここに実装する
          visit tasks_path
+         test = all('tr')[1]
+         test2 = all('tr')[2]
+         test3 = all('tr')[3]
+         expect(test).to have_content 'test_title5'
+         expect(test2).to have_content 'test_title4'
+         expect(test3).to have_content 'test_title'
        end
      end
    end
@@ -43,7 +49,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
          # visit task_path(task.id)
          expect(page).to have_content 'test_title'
-         expect(page).to have_content 'タスク詳細画面'
+         expect(page).to have_content 'タスク詳細'
        end
      end
   end
