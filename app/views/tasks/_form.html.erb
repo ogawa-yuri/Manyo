@@ -17,5 +17,9 @@
   <%= form.label :content, "内容" %>
   <%= form.text_field :content %>
 </div>
+<div class="task_expired_at">
+  <%= form.label :expired_at, "終了期限" %>
+  <%= form.text_field :expired_at %>
+</div>
 <%= form.submit "作成する" %>
 <% end %>

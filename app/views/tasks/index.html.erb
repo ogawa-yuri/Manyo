@@ -4,11 +4,13 @@
   <tr>
     <th><%= t('view.title') %></th>
     <th><%= t('view.content') %></th>
+    <th><%= t('view.expired_at') %></th>
   </tr>
 <% @tasks.each_with_index do |task, i| %>
   <tr>
   <td><%= task.title %></td>
   <td><%= task.content %></td>
+  <td><%= task.expired_at %></td>
   <td><%= link_to "詳細", task_path(task.id) %></td>
   <td><%= link_to "編集", edit_task_path(task.id) %></td>
   <td><%= link_to "削除", task_path(task.id), method: :delete %></td>
