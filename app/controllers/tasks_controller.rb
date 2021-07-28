@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     # if params[:status].present?
     #   p params[:status][:name]
     # end
-    p params[:status][:name] if params[:status].present?
+    # p params[:status][:name] if params[:status].present?
     if params[:sort_expired]
       @tasks = Task.all.order(expired_at: :desc)
     elsif params[:task_key].present? && params[:status].present?
