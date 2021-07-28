@@ -213,3 +213,4 @@ ja:
     title: タイトル
     content: 内容
     expired_at: 終了期限
+    status: ステータス

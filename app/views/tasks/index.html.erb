@@ -1,16 +1,24 @@
 <h1><%= t('view.index') %></h1>
 <%= flash[:notice] %>
+<%= form_with url: '/tasks', method: :get, local: true do |f| %>
+  <%= f.label :task_key, 'タイトル' %>
+  <%= f.text_field :task_key %>
+  <%= select :status, :name, Task.statuses.keys.to_a, include_blank: true %>
+  <%= f.submit '検索する' %>
+<% end %>
 <table>
   <tr>
     <th><%= t('view.title') %></th>
     <th><%= t('view.content') %></th>
     <th><%= t('view.expired_at') %></th>
+    <th><%= t('view.status') %></th>
   </tr>
-<% @tasks.each_with_index do |task, i| %>
+<% @tasks.each do |task| %>
   <tr>
   <td><%= task.title %></td>
   <td><%= task.content %></td>
   <td><%= task.expired_at %></td>
+  <td><%= task.status %></td>
   <td><%= link_to "詳細", task_path(task.id) %></td>
   <td><%= link_to "編集", edit_task_path(task.id) %></td>
   <td><%= link_to "削除", task_path(task.id), method: :delete %></td>
