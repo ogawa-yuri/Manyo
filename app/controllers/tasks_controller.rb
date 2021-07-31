@@ -4,21 +4,22 @@ class TasksController < ApplicationController
   end
 
   def index
-    # if params[:status].present?
-    #   p params[:status][:name]
-    # end
-    # p params[:status][:name] if params[:status].present?
+    if params[:status].present?
+     status = params[:status][:name]
+    end
     if params[:sort_expired]
       @tasks = Task.all.order(expired_at: :desc)
-    elsif params[:task_key].present? && params[:status].present?
-      @tasks = Task.where('title LIKE ? and status = ?', "%#{params[:task_key]}%", "#{params[:status][:name]}")
-    elsif params[:task_key].present? && params[:status].empty?
-      @tasks = Task.where('title LIKE ?' "%#{params[:task_key]}%")
-    elsif params[:task_key].nil? && params[:status].present?
-      @tasks = Task.where('title = ?' "#{params[:status][:name]}")
+    elsif params[:task_key].present? && params[:status][:name].present?
+      @tasks = Task.where('title LIKE ? and status = ?', "%#{params[:task_key]}%",Task.statuses[status])
+    elsif params[:task_key].present? && params[:status][:name].blank?
+      @tasks = Task.where('title LIKE ?', "%#{params[:task_key]}%")
+    elsif params[:status][:name].present?
+      @tasks = Task.where('status = ?',Task.statuses[status])
     else
       @tasks = Task.all.order(created_at: :desc)
     end
+  end
+  # params[:task_key].blank? && params[:status][:name].present?
 
     # if for content_ty
     # respond_to do |format|
@@ -28,7 +29,6 @@ class TasksController < ApplicationController
     #   form.js {
     #   }
     # end
-  end
 
   def new
     @task = Task.new
