@@ -1,9 +1,10 @@
 <h1><%= t('view.index') %></h1>
 <%= flash[:notice] %>
 <%= form_with url: '/tasks', method: :get, local: true do |f| %>
-  <%= f.label :task_key, 'タイトル' %>
-  <%= f.text_field :task_key %>
-  <%= select :status, :name, Task.statuses.keys.to_a, include_blank: true %>
+  <%= f.label :title, 'タイトル' %>
+  <%= f.text_field :title %>
+  <%= f.label :status, 'ステータス' %>
+  <%= f.select :status, Task.statuses.keys, include_blank: true %>
   <%= f.submit '検索する' %>
 <% end %>
 <table>
@@ -15,6 +16,7 @@
   </tr>
 <% @tasks.each do |task| %>
   <tr>
+  <% task.id %>
   <td><%= task.title %></td>
   <td><%= task.content %></td>
   <td><%= task.expired_at %></td>

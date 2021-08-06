@@ -9,17 +9,21 @@
      </ul>
   </div>
 <% end %>
-<div class="task_title">
+<div class="title">
   <%= form.label :title, "タイトル" %>
   <%= form.text_field :title %>
 </div>
-<div class="task_content">
+<div class="content">
   <%= form.label :content, "内容" %>
   <%= form.text_field :content %>
 </div>
-<div class="task_expired_at">
+<div class="expired_at">
   <%= form.label :expired_at, "終了期限" %>
-  <%= form.text_field :expired_at %>
+  <%= form.date_select :expired_at %>
+</div>
+<div class="status">
+  <%= form.label :status, "ステータス" %>
+  <%= form.select :status, Task.statuses.keys %>
 </div>
 <%= form.submit "作成する" %>
 <% end %>
