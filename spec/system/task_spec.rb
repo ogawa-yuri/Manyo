@@ -50,7 +50,7 @@ RSpec.describe 'タスク管理機能', type: :system do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
          visit tasks_path
-         all('tr td')[4].click #allメソッドは引数に渡されたタグやclass, id値で一致する要素を全てとってきて配列に入れてくれる
+         all('tr td')[5].click #allメソッドは引数に渡されたタグやclass, id値で一致する要素を全てとってきて配列に入れてくれる
 
          # visit task_path(task.id)
          expect(page).to have_content 'トレーニング'
@@ -58,14 +58,23 @@ RSpec.describe 'タスク管理機能', type: :system do
        end
      end
   end
-  describe '終了期限のソート機能' do
+  describe 'ソート機能' do
      context '終了期限でソートするボタンを押した場合' do
        it 'タスクが降順に並んでいる' do
          visit tasks_path
          click_on '終了期限でソートする'#allメソッドは引数に渡されたタグやclass, id値で一致する要素を全てとってきて配列に入れてくれる
          expect(all('tr td')[0].text).to have_content 'トレーニング'
-         expect(all('tr td')[7].text).to have_content '勉強'
-         expect(all('tr td')[14].text).to have_content '散歩'
+         expect(all('tr td')[8].text).to have_content '勉強'
+         expect(all('tr td')[16].text).to have_content '散歩'
+       end
+     end
+     context '優先度でソートするボタンを押した場合' do
+       it 'タスクが優先度高い順に並んでいる' do
+         visit tasks_path
+         click_on '優先度でソートする'#allメソッドは引数に渡されたタグやclass, id値で一致する要素を全てとってきて配列に入れてくれる
+         expect(all('tr td')[4].text).to have_content '高'
+         expect(all('tr td')[12].text).to have_content '中'
+         expect(all('tr td')[20].text).to have_content '低'
        end
      end
    end

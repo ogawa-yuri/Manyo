@@ -4,6 +4,7 @@ FactoryBot.define do
     content {'自宅周辺'}
     expired_at {'2021/07/1'}
     status {'waiting'}
+    priority {'高'}
   end
 
   factory :second_task, class: Task do
@@ -11,6 +12,7 @@ FactoryBot.define do
     content {'test_content2'}
     expired_at {'2021/07/2'}
     status {'completed'}
+    priority {'中'}
 
   end
 
@@ -19,6 +21,7 @@ FactoryBot.define do
     content {''}
     expired_at {'2021/07/3'}
     status {'working'}
+    priority {'低'}
   end
 
   factory :fourth_task, class: Task do
@@ -26,6 +29,7 @@ FactoryBot.define do
     content {'プログラミング'}
     expired_at {'2021/07/4'}
     status {'completed'}
+    priority {'中'}
   end
 
   factory :fifth_task, class: Task do
@@ -33,5 +37,6 @@ FactoryBot.define do
     content {'スクワット'}
     expired_at {'2021/07/5'}
     status {'working'}
+    priority {'低'}
   end
 end
