@@ -5,6 +5,8 @@
   <%= f.text_field :title %>
   <%= f.label :status, 'ステータス' %>
   <%= f.select :status, Task.statuses.keys, include_blank: true %>
+  <%= f.label :priority, '優先度' %>
+  <%= f.select :priority, Task.priorities.keys, include_blank: true %>
   <%= f.submit '検索する' %>
 <% end %>
 <table>
@@ -13,6 +15,7 @@
     <th><%= t('view.content') %></th>
     <th><%= t('view.expired_at') %></th>
     <th><%= t('view.status') %></th>
+    <th><%= t('view.priority') %></th>
   </tr>
 <% @tasks.each do |task| %>
   <tr>
@@ -21,6 +24,7 @@
   <td><%= task.content %></td>
   <td><%= task.expired_at %></td>
   <td><%= task.status %></td>
+  <td><%= task.priority %></td>
   <td><%= link_to "詳細", task_path(task.id) %></td>
   <td><%= link_to "編集", edit_task_path(task.id) %></td>
   <td><%= link_to "削除", task_path(task.id), method: :delete %></td>
@@ -28,4 +32,5 @@
 <% end %>
 </table>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+<%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %>
 <%= link_to "タスクを作成する", new_task_path %>
