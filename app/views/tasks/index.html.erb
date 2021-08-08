@@ -1,18 +1,41 @@
-<h1><%= t('view.index') %></h1>
-<%= flash[:notice] %>
-<table>
+<div class="col-md-4 offset-md-4">
+  <h1><%= t('view.index') %></h1>
+  <%= flash[:notice] %>
+  <%= form_with url: '/tasks', method: :get, local: true do |f| %>
+    <%= f.label :title, 'タイトル' %>
+    <%= f.text_field :title %>
+    <%= f.label :status, 'ステータス' %>
+    <%= f.select :status, Task.statuses.keys, include_blank: true %>
+    <%= f.label :priority, '優先度' %>
+    <%= f.select :priority, Task.priorities.keys, include_blank: true %>
+    <%= f.submit '検索する' %>
+  <% end %>
+</div>
+<table class ="table">
+  <thead>
+    <tr>
+      <th scope="col"><%= t('view.title') %></th>
+      <th scope="col"><%= t('view.content') %></th>
+      <th scope="col"><%= t('view.expired_at') %></th>
+      <th scope="col"><%= t('view.status') %></th>
+      <th scope="col"><%= t('view.priority') %></th>
+    </tr>
+  </thead>
+<% @tasks.each do |task| %>
   <tr>
-    <th><%= t('view.title') %></th>
-    <th><%= t('view.content') %></th>
-  </tr>
-<% @tasks.each_with_index do |task, i| %>
-  <tr>
+  <% task.id %>
   <td><%= task.title %></td>
   <td><%= task.content %></td>
-  <td><%= link_to "詳細", task_path(task.id) %></td>
-  <td><%= link_to "編集", edit_task_path(task.id) %></td>
-  <td><%= link_to "削除", task_path(task.id), method: :delete %></td>
+  <td><%= task.expired_at %></td>
+  <td><%= task.status %></td>
+  <td><%= task.priority %></td>
+  <td><button type="button" class="btn btn-default"><%= link_to "詳細", task_path(task.id) %></button></td>
+  <td><button type="button" class="btn btn-default"><%= link_to "編集", edit_task_path(task.id) %></button></td>
+  <td><button type="button" class="btn btn-default"><%= link_to "削除", task_path(task.id), method: :delete %></button></td>
   </tr>
 <% end %>
 </table>
+<%= paginate @tasks %>
+<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+<%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %>
 <%= link_to "タスクを作成する", new_task_path %>
