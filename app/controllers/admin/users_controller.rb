@@ -28,7 +28,6 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-  binding.irb
     if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: "ユーザーを更新しました"
     else
