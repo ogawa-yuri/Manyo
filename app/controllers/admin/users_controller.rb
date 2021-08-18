@@ -42,7 +42,7 @@ class Admin::UsersController < ApplicationController
 
   private
   def admin_user
-    redirect_to root_path unless current_user.admin?
+    redirect_to root_path, notice: "管理者以外はアクセスできません" unless current_user.admin?
   end
 
   def set_user
