@@ -1,14 +1,21 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-
-  before do
-    FactoryBot.create(:task)
-    FactoryBot.create(:fourth_task)
-    FactoryBot.create(:fifth_task)
-  end
-
   describe '新規作成機能' do
-    context 'タスクを新規作成した場合' do
+    before do
+    @user = FactoryBot.create(:user)
+    FactoryBot.create(:task, user: @user )
+    FactoryBot.create(:fourth_task, user: @user )
+    FactoryBot.create(:fifth_task, user: @user )
+    binding.irb
+    end
+   context 'ユーザーがログインしている時' do
+      before do
+        binding.irb
+        visit new_session_path
+        fill_in 'session[email]', with: @user.email
+        fill_in 'session[password]', with: @user.password
+        click_button 'ログイン'
+      end
       it '作成したタスクが表示される' do
         visit new_task_path
         fill_in 'task[title]', with: "料理"
@@ -27,35 +34,25 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content "2021-08-30 00:00:00 +0900"
         expect(page).to have_content "completed"
       end
-    end
-  end
-  describe '一覧表示機能' do
-    context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
         visit tasks_path
         expect(page).to have_content '勉強'
       end
-    end
-    context 'タスクが作成日時の降順に並んでいる場合' do
-       it '新しいタスクが一番上に表示される' do
+       it 'タスクが作成日時の降順に並んでいる' do
          # ここに実装する
          visit tasks_path
          expect(all('tr')[1].text).to have_content 'トレーニング'
          expect(all('tr')[2].text).to have_content '勉強'
          expect(all('tr')[3].text).to have_content '散歩'
        end
-     end
-   end
-  describe '詳細表示機能' do
-     context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示される' do
+       it '任意のタスク詳細画面で該当タスクの内容が表示される' do
          visit tasks_path
          all('tr td')[5].click #allメソッドは引数に渡されたタグやclass, id値で一致する要素を全てとってきて配列に入れてくれる
 
          # visit task_path(task.id)
          expect(page).to have_content 'トレーニング'
          expect(page).to have_content 'タスク詳細'
-       end
+         binding.irb
      end
   end
   describe 'ソート機能' do
@@ -109,6 +106,7 @@ RSpec.describe 'タスク管理機能', type: :system do
        end
      end
    end
+end
 end
 #   describe '終了期限のソート機能' do
 #      contet '終了期限のソート機能を押した場合' do
