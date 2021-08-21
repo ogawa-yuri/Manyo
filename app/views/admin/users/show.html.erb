@@ -5,6 +5,7 @@
 <table class ="table">
   <thead>
     <tr>
+      <th scope="col"><%= t('view.name') %></th>
       <th scope="col"><%= t('view.title') %></th>
       <th scope="col"><%= t('view.content') %></th>
       <th scope="col"><%= t('view.expired_at') %></th>
@@ -15,6 +16,7 @@
   <% @tasks.each do |task| %>
     <tr>
     <% task.id %>
+    <td><%= task.user.name %></td>
     <td><%= task.title %></td>
     <td><%= task.content %></td>
     <td><%= task.expired_at %></td>
