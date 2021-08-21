@@ -1,21 +1,20 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+
   describe '新規作成機能' do
+    let!(:user) { FactoryBot.create(:user) }
+
     before do
-    @user = FactoryBot.create(:user)
-    FactoryBot.create(:task, user: @user )
-    FactoryBot.create(:fourth_task, user: @user )
-    FactoryBot.create(:fifth_task, user: @user )
-    binding.irb
+      FactoryBot.create(:task, user_id: user.id )
+      FactoryBot.create(:fourth_task, user_id: user.id )
+      FactoryBot.create(:fifth_task, user_id: user.id )
+      visit new_session_path
+      fill_in 'session[email]', with: user.email
+      fill_in 'session[password]', with: user.password
+      click_button 'ログイン'
     end
+
    context 'ユーザーがログインしている時' do
-      before do
-        binding.irb
-        visit new_session_path
-        fill_in 'session[email]', with: @user.email
-        fill_in 'session[password]', with: @user.password
-        click_button 'ログイン'
-      end
       it '作成したタスクが表示される' do
         visit new_task_path
         fill_in 'task[title]', with: "料理"
@@ -24,9 +23,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         select '8月', from: 'task_expired_at_2i'
         select '30', from: 'task_expired_at_3i'
         select 'completed', from: 'task[status]'
-        # fill_in 'task[status]', with: "waiting"
-        # fill_in 'title', with: 'test_task2'
-        # fill_in 'content', with: 'test_content2'
         click_on '作成する'
         expect(page).to have_content '作成しました！'
         expect(page).to have_content "料理"
@@ -36,10 +32,11 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       it '作成済みのタスク一覧が表示される' do
         visit tasks_path
+        expect(page).to have_content 'トレーニング'
         expect(page).to have_content '勉強'
+        expect(page).to have_content '散歩'
       end
        it 'タスクが作成日時の降順に並んでいる' do
-         # ここに実装する
          visit tasks_path
          expect(all('tr')[1].text).to have_content 'トレーニング'
          expect(all('tr')[2].text).to have_content '勉強'
@@ -53,12 +50,12 @@ RSpec.describe 'タスク管理機能', type: :system do
          expect(page).to have_content 'トレーニング'
          expect(page).to have_content 'タスク詳細'
          binding.irb
-     end
-  end
-  describe 'ソート機能' do
+       end
+    end
      context '終了期限でソートするボタンを押した場合' do
        it 'タスクが降順に並んでいる' do
          visit tasks_path
+         binding.irb
          click_on '終了期限でソートする'#allメソッドは引数に渡されたタグやclass, id値で一致する要素を全てとってきて配列に入れてくれる
          expect(all('tr td')[0].text).to have_content 'トレーニング'
          expect(all('tr td')[8].text).to have_content '勉強'
@@ -107,10 +104,3 @@ RSpec.describe 'タスク管理機能', type: :system do
      end
    end
 end
-end
-#   describe '終了期限のソート機能' do
-#      contet '終了期限のソート機能を押した場合' do
-#        it '該当タスクが降順に表示される' do
-#          visit tasks_path
-#   end
-# end
