@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks.order(created_at: :desc)
     @tasks = @tasks.expired_at_sort if params[:sort_expired].present?
     @tasks = @tasks.status_search(params[:status]) if params[:status].present?
     @tasks = @tasks.title_search(params[:title]) if params[:title].present?
@@ -44,7 +44,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice:"タスクを作成しました！"
     else

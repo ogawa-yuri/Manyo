@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  belongs_to :user
   validates :title, presence: true
   validates :content, presence: true
   enum status: { waiting: 0, working: 1, completed: 2 }
@@ -15,6 +16,5 @@ class Task < ApplicationRecord
   scope :title_search, -> (title) {
     where("title LIKE ?", "%#{ title }%")
   }
-
   # scope :title_search, ->(task_key){where('title LIKE ?',task_key)}
 end
