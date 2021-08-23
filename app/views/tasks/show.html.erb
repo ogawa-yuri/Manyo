@@ -3,4 +3,11 @@
   <p><%= t('view.title') %>: <%= @task.title %></p>
   <p><%= t('view.content') %>: <%= @task.content %></p>
   <p><%= t('view.expired_at') %>: <%= @task.expired_at %></p>
+
+  <br>
+  <h4>ラベル一覧</h4>
+  <% @labels.each do |label| %>
+    <%= label.name %>
+    <br>
+  <% end %>
 </div>

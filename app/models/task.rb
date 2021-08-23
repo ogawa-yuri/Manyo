@@ -1,5 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :labelings, dependent: :destroy
+  has_many :labels, through: :labelings, source: :label
   validates :title, presence: true
   validates :content, presence: true
   enum status: { waiting: 0, working: 1, completed: 2 }
@@ -17,4 +19,12 @@ class Task < ApplicationRecord
     where("title LIKE ?", "%#{ title }%")
   }
   # scope :title_search, ->(task_key){where('title LIKE ?',task_key)}
+
+  def has_label?(label)
+    # results = self.labels.select do |l|
+    #   l.id == label
+    # end
+    results = self.labels.select { |l| l.id == label.id }
+    results.length > 0
+  end
 end

@@ -29,6 +29,15 @@
   <%= form.label :priority, "優先度" %>
   <%= form.select :priority, Task.priorities.keys %>
 </div>
+
+<% @labels.each do |label| %>
+  <%= form.check_box :label_ids, { multiple: true, checked: @task.has_label?(label), disabled: label[:disabled], include_hidden: false }, label[:id] %>
+  <%= label.name %>
+<% end %>
+<%# @labels.each do |label| %>
+  <%#= form.check_box :label_ids, { multiple: true, checked: @task.label_ids.map(&:to_param), disabled: label[:disabled], include_hidden: false }, label[:id] %>
+  <%#= form.check_box :label_ids, { multiple: true, checked: @task.label_ids.map(&:to_param) } do |label| %>
+<%# end %>
 <div class="text-left">
   <%= form.submit "作成する", class: "btn btn-primary" %>
   <% end %>

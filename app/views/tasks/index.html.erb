@@ -1,6 +1,7 @@
 <div class="col-md-4 offset-md-4">
   <h1><%= t('view.index') %></h1>
   <%= flash[:notice] %>
+  <th>
   <%= form_with url: '/tasks', method: :get, local: true do |f| %>
     <%= f.label :title, 'タイトル' %>
     <%= f.text_field :title %>
@@ -8,8 +9,11 @@
     <%= f.select :status, Task.statuses.keys, include_blank: true %>
     <%= f.label :priority, '優先度' %>
     <%= f.select :priority, Task.priorities.keys, include_blank: true %>
+    <%= f.label :label, 'ラベル' %>
+    <%= f.select :label_id, Label.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
     <%= f.submit '検索する' %>
   <% end %>
+  <th/>
 </div>
 <table class ="table">
   <thead>
