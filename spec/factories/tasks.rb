@@ -5,6 +5,16 @@ FactoryBot.define do
     expired_at {'2021/07/1'}
     status {'waiting'}
     priority {'高'}
+
+    after(:build) do |task|
+      label = create(:label)
+      second_label = create(:second_label)
+      third_label = create(:third_label)
+      task.labelings << build(:labeling, task: task, label: label )
+    end
+    # after(:build) do |task|
+    #   task.labels << Label.find_by(name: FactoryBot.build(:label).name) || FactoryBot.create(:label)
+    # end
   end
 
   factory :second_task, class: Task do
@@ -13,7 +23,6 @@ FactoryBot.define do
     expired_at {'2021/07/2'}
     status {'completed'}
     priority {'中'}
-
   end
 
   factory :third_task, class: Task do

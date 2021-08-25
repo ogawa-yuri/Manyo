@@ -12,6 +12,10 @@ class TasksController < ApplicationController
     @tasks = @tasks.title_search(params[:title]) if params[:title].present?
     @tasks = @tasks.priority_sort if params[:sort_priority].present?
     @tasks = @tasks.page(params[:page]).per(10)
+    # binding.irb
+    # @tasks = labels.label_serch(params[:label_id]).present?
+    @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
+    # @tasks = @tasks.label_serch(params[:label_id]) if params[:label_id].present?
     # if params[:status].present?
     #  status = params[:status][:name]
     # end

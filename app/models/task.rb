@@ -18,6 +18,10 @@ class Task < ApplicationRecord
   scope :title_search, -> (title) {
     where("title LIKE ?", "%#{ title }%")
   }
+
+  scope :label_serch, -> (label_id) {
+    where(label_id: label_id)
+  }
   # scope :title_search, ->(task_key){where('title LIKE ?',task_key)}
 
   def has_label?(label)

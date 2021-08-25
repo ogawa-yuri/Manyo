@@ -10,7 +10,7 @@
     <%= f.label :priority, '優先度' %>
     <%= f.select :priority, Task.priorities.keys, include_blank: true %>
     <%= f.label :label, 'ラベル' %>
-    <%= f.select :label_id, Label.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+    <%= f.select :label_id, Label.all.collect { |p| [ p.name, p.id] }, include_blank: true %>
     <%= f.submit '検索する' %>
   <% end %>
   <th/>
