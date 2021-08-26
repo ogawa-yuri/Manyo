@@ -14,7 +14,6 @@
  *= require_tree .
  *= require_self
  */
-
  .bootstrap-date {
    display: inline-block;
    width: auto;
