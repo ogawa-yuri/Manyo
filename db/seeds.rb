@@ -38,14 +38,14 @@ User.create!(
    },
    {
      name: "rino",
-     email: "admin2@example.com",
+     email: "rino@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
      admin: false)
    },
    {
      name: "sana",
-     email: "admin2@example.com",
+     email: "sena@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
      admin: false)
