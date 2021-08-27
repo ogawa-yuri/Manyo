@@ -13,70 +13,70 @@ User.create!(
      email: "admin2@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: true)
+     admin: true
    },
    {
      name: "hana",
      email: "hana@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    },
    {
      name: "nana",
      email: "nana@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    },
    {
      name: "rina",
      email: "rina@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    },
    {
      name: "rino",
      email: "rino@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    },
    {
      name: "sana",
      email: "sena@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    },
    {
      name: "mana",
      email: "mana@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    },
    {
      name: "rin",
      email: "rin@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    },
    {
      name: "nene",
      email: "nene@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    },
    {
      name: "nano",
      email: "nano@example.com",
      password: "q123456789@",
      password_confirmation: "q123456789@",
-     admin: false)
+     admin: false
    }
  ]
 )
